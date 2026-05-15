@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
 
   // 👉 FETCH CART
   const fetchCart = async () => {
-    const res = await axios.get("http://localhost:5000/api/cart", {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setCart(res.data);
@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
   // 👉 ADD
   const addToCart = async (product) => {
     await axios.post(
-      "http://localhost:5000/api/cart",
+      `${import.meta.env.VITE_API_URL}/cart`,
       { product_id: product.id },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -34,7 +34,7 @@ export const CartProvider = ({ children }) => {
   // 👉 UPDATE
   const updateQuantity = async (item_id, quantity) => {
     await axios.put(
-      "http://localhost:5000/api/cart",
+      `${import.meta.env.VITE_API_URL}/cart`,
       { item_id, quantity },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }) => {
   // 👉 REMOVE
   const removeFromCart = async (item_id) => {
     await axios.delete(
-      `http://localhost:5000/api/cart/${item_id}`,
+      `${import.meta.env.VITE_API_URL}/cart/${item_id}`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     fetchCart();
@@ -53,7 +53,7 @@ export const CartProvider = ({ children }) => {
   // 👉 CLEAR
   const clearCart = async () => {
     await axios.delete(
-      "http://localhost:5000/api/cart/clear/all",
+      `${import.meta.env.VITE_API_URL}/cart/clear/all`,
       { headers: { Authorization: `Bearer ${token}` } }
     );
     setCart([]);
