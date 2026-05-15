@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/", upload.single("image"), (req, res) => {
   res.json({
-    imageUrl: `http://localhost:5000/uploads/${req.file.filename}`,
+    imageUrl: req.file.path,
   });
 });
 
