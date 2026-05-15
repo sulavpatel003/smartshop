@@ -19,7 +19,15 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://your-frontend-url.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
@@ -43,7 +51,11 @@ import { Server } from "socket.io";
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: [
+      "http://localhost:5173",
+      "https://your-frontend-url.vercel.app",
+    ],
+    credentials: true,
   },
 });
 
