@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import toast from "react-hot-toast";
 
 function CreateShop() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     shop_name: "",
     address: "",
@@ -15,6 +17,7 @@ function CreateShop() {
     try {
       await API.post("/shops", form);
       toast.success("Your shop is now live on SmartShop 🏪✨");
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Something went wrong while creating your shop");
@@ -60,7 +63,7 @@ function CreateShop() {
               🏷️ Shop Name
             </label>
             <input
-              placeholder="e.g. Ravi's Electronics"
+              placeholder="e.g. Sulav's Electronics"
               className="input-base"
               value={form.shop_name}
               onChange={(e) => setForm({ ...form, shop_name: e.target.value })}
