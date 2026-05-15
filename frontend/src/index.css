@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #F97316;
+  --primary-dark: #EA580C;
+  --secondary: #0D9488;
+  --secondary-dark: #0F766E;
+  --accent: #F59E0B;
+  --bg: #FFFBF5;
+  --card: #FFFFFF;
+  --text: #1C1917;
+  --text-muted: #78716C;
+  --border: #FED7AA;
+  --shadow: 0 4px 24px rgba(249,115,22,0.08);
+  --shadow-hover: 0 12px 40px rgba(249,115,22,0.18);
+  --radius: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', sans-serif;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FEF3C7;
+}
+::-webkit-scrollbar-thumb {
+  background: #F97316;
+  border-radius: 99px;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #F97316 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card base */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(249,115,22,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Btn primary */
+.btn-primary {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(249,115,22,0.35);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(249,115,22,0.5);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%);
+  color: white;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(13,148,136,0.3);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 6px 20px rgba(13,148,136,0.45);
+  transform: translateY(-1px);
+}
+
+/* Input base */
+.input-base {
+  border: 1.5px solid #FED7AA;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  width: 100%;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  background: #FFFBF5;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.input-base:focus {
+  border-color: #F97316;
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+  background: #fff;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Fade in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Pulse dot */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.5s ease infinite;
+}
+
+/* Shimmer loading */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Navbar glass */
+.navbar-glass {
+  background: rgba(255,251,245,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(249,115,22,0.12);
+}
+
+/* Message bubble */
+.bubble-user {
+  background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  color: white;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+}
+
+.bubble-bot {
+  background: #fff;
+  border: 1.5px solid #FED7AA;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  color: #1C1917;
+}
+
+/* Tag badge */
+.tag {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+}
+
+/* Decorative orb */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.25;
+  pointer-events: none;
+}
