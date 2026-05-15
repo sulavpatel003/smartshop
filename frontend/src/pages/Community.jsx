@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import API from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 function Community() {
   const { user } = useContext(AuthContext);
