@@ -31,7 +31,7 @@ app.use(
 
 app.use(express.json());
 
-app.use("/uploads", express.static("src/uploads"));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/shops", shopRoutes);
