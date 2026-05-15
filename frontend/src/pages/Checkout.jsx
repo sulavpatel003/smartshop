@@ -6,35 +6,63 @@ function Checkout() {
   const [cart, setCart] = useState([]);
   const token = localStorage.getItem("token");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const fetchCart = async () => {
-    const res = await axios.get("http://localhost:5000/api/cart", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setCart(res.data);
+    try {
+      const res = await axios.get(`${API_URL}/cart`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCart(res.data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load cart");
+    }
   };
 
   useEffect(() => {
     fetchCart();
   }, []);
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   const handleCOD = async () => {
-    await axios.post(
-      "http://localhost:5000/api/orders",
-      { delivery_type: "COD" },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    toast.success("Order placed successfully (COD)");
-    fetchCart();
+    try {
+      await axios.post(
+        `${API_URL}/orders`,
+        { delivery_type: "COD" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Order placed successfully 🎉");
+      fetchCart();
+
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to place order");
+    }
   };
 
   const handlePayment = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/payment/create",
+        `${API_URL}/payment/create`,
         { amount: total },
-        { headers: { Authorization: `Bearer ${token}` } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       const options = {
@@ -42,24 +70,42 @@ function Checkout() {
         amount: data.amount,
         currency: "INR",
         order_id: data.id,
+
         handler: async function (response) {
-          await axios.post(
-            "http://localhost:5000/api/payment/verify",
-            response,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          await axios.post(
-            "http://localhost:5000/api/orders",
-            { delivery_type: "ONLINE" },
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          toast.success("Payment successful 🎉");
-          fetchCart();
+          try {
+            await axios.post(
+              `${API_URL}/payment/verify`,
+              response,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            await axios.post(
+              `${API_URL}/orders`,
+              { delivery_type: "ONLINE" },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            toast.success("Payment successful 🎉");
+            fetchCart();
+
+          } catch (error) {
+            console.error(error);
+            toast.error("Payment verification failed");
+          }
         },
       };
 
       const rzp = new window.Razorpay(options);
       rzp.open();
+
     } catch (err) {
       console.error(err);
       toast.error("Payment failed ❌");
