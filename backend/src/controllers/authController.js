@@ -2,7 +2,7 @@ import pool from "../config/db.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/jwt.js";
 
-// ================= REGISTER =================
+// ================= REGISTER ================= is 
 export const register = async (req, res) => {
   try {
     // 🔥 CHANGE 1: ADD ROLE HERE
