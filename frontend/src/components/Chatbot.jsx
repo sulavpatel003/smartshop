@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import API from "../services/api";
+import ReactMarkdown from "react-markdown";
 
 function Chatbot() {
   const [messages, setMessages] = useState([
@@ -101,12 +102,28 @@ function Chatbot() {
               </div>
             )}
             <div
-              className={`max-w-[80%] px-3.5 py-2.5 text-sm leading-relaxed ${
-                m.sender === "user" ? "bubble-user" : "bubble-bot"
-              }`}
-            >
-              {m.text}
-            </div>
+  className={`max-w-[80%] px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+    m.sender === "user" ? "bubble-user" : "bubble-bot"
+  }`}
+>
+  <ReactMarkdown
+    components={{
+      strong: ({ children }) => (
+        <strong className="font-bold text-stone-900">
+          {children}
+        </strong>
+      ),
+      p: ({ children }) => (
+        <p className="mb-2 last:mb-0">{children}</p>
+      ),
+      li: ({ children }) => (
+        <li className="ml-4 list-disc">{children}</li>
+      ),
+    }}
+  >
+    {m.text}
+  </ReactMarkdown>
+</div>
           </div>
         ))}
 
